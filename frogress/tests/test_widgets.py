@@ -101,14 +101,14 @@ class TestBarWidget(TestWidget):
         self.bar.treshold = 0
         #self.bar.get_percentage = mock.Mock(return_value=None)
         self.bar.output = io.StringIO()
-        list(self.bar) # exhaust generator
+        list(self.bar) # exhaust progressbar iterator
         expected = ''.join('\r%s' % line for line in [
-            '[#..]',
-            '[.#.]',
-            '[..#]',
-            '[.#.]',
-            '[#..]',
-            '[###]',
+            '[#..]', # step 1
+            '[.#.]', # step 2
+            '[..#]', # step 3
+            '[.#.]', # step 4
+            '[#..]', # step 5
+            '[###]', # bar.finish()
         ])
         self.assertEqual(self.bar.output.getvalue(), expected)
 

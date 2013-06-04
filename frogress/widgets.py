@@ -17,23 +17,24 @@ class BarWidget(Widget):
         self.pos_delta = 1
 
     def render(self, bar):
-        if bar.finished is not None:
+        percentage = bar.get_percentage()
+        if not bar.started:
+            progress = self.empty_char * self.width
+        elif bar.finished:
             progress = self.fill_char * self.width
+        elif percentage is not None:
+            filled_count = int(percentage * self.width / 100.0)
+            filled = self.fill_char * min(filled_count, self.width)
+            progress = filled.ljust(self.width, self.empty_char)
         else:
-            percentage = bar.get_percentage()
-            if percentage:
-                filled_count = int(percentage * self.width / 100.0)
-                filled = self.fill_char * min(filled_count, self.width)
-                progress = filled.ljust(self.width, self.empty_char)
-            else:
-                self.pos += self.pos_delta
-                if self.pos == self.width - 1:
-                    self.pos_delta = -1
-                elif self.pos == 0:
-                    self.pos_delta = 1
-                progress = [self.empty_char] * self.width
-                progress[self.pos] = self.fill_char
-                progress = ''.join(progress)
+            self.pos += self.pos_delta
+            if self.pos == self.width - 1:
+                self.pos_delta = -1
+            elif self.pos == 0:
+                self.pos_delta = 1
+            progress = [self.empty_char] * self.width
+            progress[self.pos] = self.fill_char
+            progress = ''.join(progress)
         return '[%s]' % progress
 
 

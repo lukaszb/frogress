@@ -45,15 +45,40 @@ class Bar(object):
     def step(self, step):
         self._step = step
 
+    @property
+    def iterable(self):
+        return self._iterable
+
+    @iterable.setter
+    def iterable(self, iterable):
+        self._iterable = iterable
+        self.iterator = iter(iterable)
+
     def __str__(self):
         pass
 
     def __iter__(self):
-        self.started = datetime.datetime.now()
-        for item in self.iterable:
-            yield item
+        # bar itself is an iterator already
+        return self
+
+    def __next__(self):
+        if not self.started:
+            self.start()
+        try:
+            item = next(self.iterator)
             self.step += 1
             self.show()
+            return item
+        except StopIteration:
+            self.finish()
+            raise
+
+    next = __next__
+
+    def start(self):
+        self.started = datetime.datetime.now()
+
+    def finish(self):
         self.finished = datetime.datetime.now()
         self.show()
 

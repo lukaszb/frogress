@@ -1,8 +1,10 @@
 from __future__ import unicode_literals, absolute_import
 from frogress.tests.compat import unittest
 from frogress.utils import get_list, gen_range
+from frogress.widgets import ProgressWidget
 import datetime
 import frogress
+import io
 import mock
 
 
@@ -23,12 +25,15 @@ class TestBar(unittest.TestCase):
         self.bar.started = None
         self.assertIsNone(self.bar.get_timedelta())
 
+    def test_next(self):
+        self.bar.iterable = [1, 2, 3, 4, 5]
+        next(self.bar)
+        self.assertEqual(self.bar.step, 1)
+
     def test_step(self):
         self.bar.iterable = gen_range(100)
         self.assertEqual(self.bar.step, 0)
         iterator = iter(self.bar)
-        next(iterator) # starts iterator but doesn't increase step just yet
-        self.assertEqual(self.bar.step, 0)
         next(iterator)
         self.assertEqual(self.bar.step, 1)
         next(iterator)
@@ -64,11 +69,32 @@ class TestBar(unittest.TestCase):
         self.bar.widgets = ['Prefix', widget1]
         self.assertEqual(self.bar.render(), 'Prefix | foo')
 
+    @mock.patch('frogress.bars.get_terminal_width')
+    def test_progress(self, get_terminal_width):
+        get_terminal_width.return_value = None
+        self.bar.iterable = gen_range(3)
+        self.bar.output = io.StringIO()
+        self.bar.treshold = 0
+        self.bar.setup_widgets([ProgressWidget])
+        next(self.bar)
+        next(self.bar)
+        next(self.bar)
+        with self.assertRaises(StopIteration):
+            next(self.bar)
+        output = self.bar.output.getvalue()
+        self.assertEqual(output, '\r'.join([
+            '\rProgress: 1',
+            'Progress: 2',
+            'Progress: 3',
+            'Progress: 3', # show is called on finish too
+        ]))
+
     def test_iter(self):
         self.bar.iterable = [1, 2, 3]
         items = iter(self.bar)
         self.assertEqual(list(items), [1, 2, 3])
-        self.assertIsNotNone(self.bar.started)
+        self.assertIsInstance(self.bar.started, datetime.datetime)
+        self.assertIsInstance(self.bar.finished, datetime.datetime)
 
     def test_show(self):
         self.bar.iterable = [1, 2, 3, 4, 5, 6, 7]
