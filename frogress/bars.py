@@ -54,9 +54,6 @@ class Bar(object):
         self._iterable = iterable
         self.iterator = iter(iterable)
 
-    def __str__(self):
-        pass
-
     def __iter__(self):
         # bar itself is an iterator already
         return self

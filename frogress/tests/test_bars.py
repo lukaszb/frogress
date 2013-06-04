@@ -1,4 +1,5 @@
 from __future__ import unicode_literals, absolute_import
+from collections import Iterable
 from frogress.tests.compat import unittest
 from frogress.utils import get_list, gen_range
 from frogress.widgets import ProgressWidget
@@ -137,4 +138,18 @@ class TestBar(unittest.TestCase):
         self.bar.iterable = gen_range(10)
         self.bar.step = 51
         self.assertIsNone(self.bar.get_percentage())
+
+    def test_setup_widgets_if_no_widgets_passed(self):
+        self.bar.DEFAULT_WIDGETS = []
+        self.bar.steps = 5
+        self.bar.setup_widgets(None)
+        self.assertEqual(len(self.bar.widgets), 1)
+        self.assertIsInstance(self.bar.widgets[0], frogress.PercentageWidget)
+
+    def test_iterable_property(self):
+        self.bar._iterable = 'foobar'
+        self.assertEqual(self.bar.iterable, 'foobar')
+
+    def test_is_iterable(self):
+        self.assertIsInstance(self.bar, Iterable)
 

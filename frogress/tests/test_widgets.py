@@ -6,7 +6,7 @@ import io
 import mock
 
 
-class TestWidget(unittest.TestCase):
+class TestBaseWidget(unittest.TestCase):
     widget_class = None
     widget_attrs = {}
 
@@ -21,13 +21,25 @@ class TestWidget(unittest.TestCase):
         self.assertEqual(self.widget.render(self.bar), expected)
 
 
-class TestProgressWidget(TestWidget):
+class TestWidget(TestBaseWidget):
+    widget_class = frogress.Widget
+
+    def test_not_implemented(self):
+        with self.assertRaises(NotImplementedError):
+            self.widget.render(self.bar)
+
+class TestProgressWidget(TestBaseWidget):
     widget_class = frogress.ProgressWidget
 
     def test_render(self):
         self.bar.step = 102
         self.bar.steps = None
         self.assertRenderedWidgetEqual('Progress: 102')
+
+    def test_render_known_steps(self):
+        self.bar.step = 102
+        self.bar.steps = 150
+        self.assertRenderedWidgetEqual('Progress: 102 / 150')
 
     def test_render_prefix_changed(self):
         self.widget.prefix = 'Steps: '
@@ -36,7 +48,7 @@ class TestProgressWidget(TestWidget):
         self.assertRenderedWidgetEqual('Steps: 102')
 
 
-class TestPercentageWidget(TestWidget):
+class TestPercentageWidget(TestBaseWidget):
     widget_class = frogress.PercentageWidget
 
     def test_render(self):
@@ -48,7 +60,7 @@ class TestPercentageWidget(TestWidget):
         self.assertRenderedWidgetEqual('100.0%')
 
 
-class TestTransferWidget(TestWidget):
+class TestTransferWidget(TestBaseWidget):
     widget_class = frogress.TransferWidget
     widget_attrs = {'prefix': ''}
 
@@ -71,13 +83,17 @@ class TestTransferWidget(TestWidget):
         self.assertRenderedWidgetEqual('908.0MB / 2.34G')
 
 
-class TestBarWidget(TestWidget):
+class TestBarWidget(TestBaseWidget):
     widget_class = frogress.BarWidget
     widget_attrs = {'width': 10, 'fill_char': '#', 'empty_char': '.'}
 
     def setUp(self):
         super(TestBarWidget, self).setUp()
         self.bar.finished = None
+
+    def test_render_not_started(self):
+        self.bar.started = None
+        self.assertRenderedWidgetEqual('[..........]')
 
     def test_render(self):
         self.bar.get_percentage = mock.Mock(return_value=56.0)
@@ -113,7 +129,7 @@ class TestBarWidget(TestWidget):
         self.assertEqual(self.bar.output.getvalue(), expected)
 
 
-class TestTimerWidget(TestWidget):
+class TestTimerWidget(TestBaseWidget):
     widget_class = frogress.TimerWidget
     widget_attrs = {'prefix': 'Elapsed: '}
 
@@ -146,7 +162,7 @@ class TestTimerWidget(TestWidget):
         self.assertRenderedWidgetEqual('Elapsed: 1d4h51min0s')
 
 
-class TestWhirlWidget(TestWidget):
+class TestWhirlWidget(TestBaseWidget):
     widget_class = frogress.WhirlWidget
     widget_attrs = {'chars': '12345', 'finished_text': 'Done'}
 
@@ -165,7 +181,7 @@ class TestWhirlWidget(TestWidget):
         self.bar.finished = True
         self.assertRenderedWidgetEqual('Done')
 
-class TestEtaWidget(TestWidget):
+class TestEtaWidget(TestBaseWidget):
     widget_class = frogress.EtaWidget
     widget_attrs = {'prefix': 'Eta: '}
 
