@@ -2,6 +2,9 @@
 frogress - a progress tool for humans
 =====================================
 
+.. image:: https://secure.travis-ci.org/lukaszb/frogress.png?branch=master
+  :target: http://travis-ci.org/lukaszb/frogress
+
 ::
 
                 /----------------------------------------------------------------------------------\
