@@ -17,9 +17,9 @@ class TestBar(unittest.TestCase):
 
     def test_get_timedelta(self):
         self.bar.started = datetime.datetime(2013, 5, 13, 17, 0, 0)
-        now = datetime.datetime(2013, 5, 13, 17, 2, 15)
+        now = datetime.datetime(2013, 5, 13, 17, 2, 15, 500000)
         delta = self.bar.get_timedelta(now)
-        self.assertEqual(delta, 135.0)
+        self.assertEqual(delta, 135.5)
 
     def test_get_timedelta_not_started_yet(self):
         self.bar.step = 12 # should be ignored

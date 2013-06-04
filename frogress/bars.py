@@ -84,10 +84,14 @@ class Bar(object):
         Returns number of seconds that passed since ``self.started``, as float.
         None is returned if ``self.started`` was not set yet.
         """
+        def datetime_to_time(timestamp):
+            atime = time.mktime(timestamp.timetuple())
+            atime += timestamp.microsecond / 10.0**6
+            return atime
         if self.started is not None:
             now = now or datetime.datetime.now()
-            started_time =  time.mktime(self.started.timetuple())
-            now_time = time.mktime(now.timetuple())
+            started_time = datetime_to_time(self.started)
+            now_time = datetime_to_time(now)
             return now_time - started_time
         return None
 
