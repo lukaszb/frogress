@@ -6,7 +6,7 @@ frogress - a progress tool for humans
 
                 /----------------------------------------------------------------------------------\
                 |                                                                                  |
-      @..@     /| [###.......] Progress: 34.2MB / 125.8MB |  25.0% | ETA: 19min52s | Time: 14min3s |
+      @..@     /| [###.......] Progress: 34.2MB / 125.8MB |  25.0% | Time: 14min3s | ETA: 19min52s |
      (----)   / |                                                                                  |
     ( >__< )    \----------------------------------------------------------------------------------/
     ^^ ~~ ^^
@@ -25,6 +25,8 @@ your terminal, that's why!
   but it works!)
 - And you can easily teach it how to show progress of fat, gzipped xml file
   when using lxml_ to parse it
+- Supports Python 2.6+, Python 3, PyPY
+- Fully tested
 
 
 Iteration examples
@@ -43,7 +45,7 @@ Iterate over a list
     >>> for item in frogress.bar(items):
     ...     pass # do something with item
 
-    [##........] Step 2/5 |  20.0% | ETA: 0.5s | Time: 0.1s
+    [##........] Step 2/5 |  20.0% | Time: 0.1s | ETA: 0.5s
 
 
 Iterate over a file
@@ -55,7 +57,7 @@ Iterate over a file
     >>> for line in frogress.bar(open('/path/to/file', steps_label='Progress')):
     ...     pass # do something cruel with a line
 
-    [###.......] Progress: 3.2MB / 12.8MB |  25.0% | ETA: 19min52s | Time: 14min3s
+    [###.......] Progress: 3.2MB / 12.8MB |  25.0% | Time: 14min3s | ETA: 19min52s
 
 
 Iterate over generator
@@ -69,7 +71,7 @@ Iterate over generator
     >>> for item in frogress.bar(items, steps=count):
     ...     pass # do something with item
 
-    [#########.] Step 86/100 |  86.0% | ETA: 7.3s | Time: 1.2s
+    [#########.] Step 86/100 |  86.0% | Time: 1.2s | ETA: 7.3s
 
 
 Iterate over a generator with unknown total number of steps
@@ -142,7 +144,7 @@ Pass source
     ...     pass # do something with element
     ...     element.clear() # don't forget about the memory!
 
-    [#####.....] Progress: 73.5MB / 156.4MB |  47.3% | ETA: 1h53min | Time: 1h42min
+    [#####.....] Progress: 73.5MB / 156.4MB |  47.3% | Time: 1h42min | ETA: 1h53min
 
 Just remember to pass file that is actually processed, not a wrapper! Standard
 file would be passed directly, however in example, ``gzip`` module wraps stream
