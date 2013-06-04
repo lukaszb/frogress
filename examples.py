@@ -25,7 +25,7 @@ def show_progress(title, iterable, **kwargs):
     for item in frogress.bar(iterable, **kwargs):
         if sleep:
             time.sleep(sleep)
-        if (datetime.datetime.now() - started).total_seconds() > timeout:
+        if (datetime.datetime.now() - started).seconds > timeout:
             print('\n[Timeout reached: %.1fs]' % timeout)
             break
     print('\n')
@@ -36,7 +36,7 @@ def requests_progress():
     print('  requests  '.center(80, '=') + '\n')
     url = 'http://python.org/ftp/python/3.3.2/Python-3.3.2.tar.bz2'
     chunk_size = 2**16
-    with tempfile.NamedTemporaryFile('w') as fout:
+    with tempfile.NamedTemporaryFile('wb') as fout:
         response = requests.get(url, stream=True)
         stream = response.iter_content(chunk_size)
         bar = frogress.TransferBar(stream,
@@ -45,6 +45,10 @@ def requests_progress():
         )
         for chunk in bar:
             fout.write(chunk)
+            percentage = bar.get_percentage()
+            if percentage and percentage >= 30:
+                print('\nStopped on purpse')
+                break
     print('\n')
 
 
@@ -52,11 +56,11 @@ def main():
     requests_progress()
     show_progress('Generator', gen_range(100))
     show_progress('List', range(80))
-    show_progress('Generator (known total items count)', xrange(100), steps=100)
+    show_progress('Generator (known total items count)', gen_range(100), steps=100)
     show_progress('List', range(120))
     show_progress('Whirl', gen_range(150), widgets=[frogress.ProgressWidget,
         frogress.WhirlWidget])
-    show_progress('A file', open(sample_filename('books.xml')), sleep=0.001)
+    show_progress('A file', open(sample_filename('books.xml'), mode='rb'), sleep=0.001)
 
     try:
         import gzip

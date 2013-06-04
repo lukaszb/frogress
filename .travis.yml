@@ -6,12 +6,15 @@ python:
  - "pypy"
 
 install:
-    - pip install requests lxml nose coverage
+    - pip install requests lxml
 
 script:
     - python setup.py test
-    - nosetests --with-coverage --cover-package=frogress
     - ./examples.py
+
+after_success:
+    - pip install nose coverage unittest2
+    - nosetests --with-coverage --cover-package=frogress
 
 notifications:
   irc: "irc.freenode.net#frogress"
