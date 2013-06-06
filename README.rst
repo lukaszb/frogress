@@ -196,6 +196,19 @@ you need to make some customization, here we present some examples::
     datetime.datetime(2013, 5, 12, 22, 2, 26, 792901)
 
 
+Tips & Tricks
+=============
+
+How to change label of the progress widget
+------------------------------------------
+
+::
+
+    >>> import frogress
+    >>> items = [1, 2, 3, 4, 5]
+    >>> widgets = [frogress.BarWidget, frogress.ProgressWidget('Items: '), frogress.TimerWidget]
+    >>> for item in frogress.bar(items, widgets=widgets):
+    >>>     pass
 
 
 .. _lxml: http://lxml.de/
