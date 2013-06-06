@@ -3,7 +3,16 @@ frogress - a progress tool for humans
 =====================================
 
 .. image:: https://secure.travis-ci.org/lukaszb/frogress.png?branch=master
-  :target: http://travis-ci.org/lukaszb/frogress
+   :target: http://travis-ci.org/lukaszb/frogress
+
+.. image:: https://coveralls.io/r/lukaszb/frogress
+   :target: https://coveralls.io/repos/lukaszb/frogress/badge.png?branch=master
+
+.. image:: https://pypip.in/v/frogress/badge.png
+   :target: https://crate.io/packages/frogress/
+
+.. image:: https://pypip.in/d/frogress/badge.png
+   :target: https://crate.io/packages/frogress/
 
 ::
 
