@@ -16,8 +16,6 @@ except IOError as err:
 extra_kwargs = {'tests_require': ['mock>1.0']}
 if sys.version_info < (2, 7):
     extra_kwargs['tests_require'].append('unittest2')
-if sys.version_info >= (3,):
-    extra_kwargs['use_2to3'] = True
 
 frogress = __import__('frogress')
 
