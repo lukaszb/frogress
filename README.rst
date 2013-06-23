@@ -11,9 +11,6 @@ frogress - a progress tool for humans
 .. image:: https://pypip.in/v/frogress/badge.png
    :target: https://crate.io/packages/frogress/
 
-.. image:: https://pypip.in/d/frogress/badge.png
-   :target: https://crate.io/packages/frogress/
-
 ::
 
                 /----------------------------------------------------------------------------------\
