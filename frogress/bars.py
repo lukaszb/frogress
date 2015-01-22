@@ -26,7 +26,7 @@ class Bar(object):
         self.finished = None
         self.setup_widgets(widgets)
         self.separator = ' | '
-        self.output = sys.stdout
+        self.output = output
         self.last_shown_at = None
         self.treshold = 0.05 # in seconds
 
