@@ -16,7 +16,8 @@ class Bar(object):
 
     DEFAULT_WIDGETS = [BarWidget, ProgressWidget, TimerWidget, EtaWidget]
 
-    def __init__(self, iterable, steps=None, step_callback=None, widgets=None):
+    def __init__(self, iterable, steps=None, step_callback=None, widgets=None,
+                 output=sys.stderr):
         self.steps = steps
         self.iterable = iterable
         self.step = 0
