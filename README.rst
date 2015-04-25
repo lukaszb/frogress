@@ -30,6 +30,7 @@ your terminal, that's why!
 - It can guess if you `iterate over a list`_ (or similar iterable) ...
 - or if iterate over a file ...
 - or if iterate over generator - provided you know it's total length ...
+- or used within a ``with`` context manager ...
 - or not! (no eta, no total steps, no percentage and indicator instead of a bar
   but it works!)
 - And you can easily teach it how to show progress of fat, gzipped xml file
@@ -103,6 +104,19 @@ Iterate over a generator with unknown total number of steps
     [.........#] Step: 1411 | Time: 2min15s
     [........#.] Step: 1412 | Time: 2min16s
     [.......#..] Step: 1413 | Time: 2min17s
+
+
+Iterate over a file with a ``with`` context
+-------------------------------------------
+
+::
+
+    >>> import frogress
+    >>> with frogress.bar(open('/path/to/file', steps_label='Progress')) as f:
+    ...     for line in f:
+    ...         pass # do something cruel with a line
+
+    [###.......] Progress: 3.2MB / 12.8MB |  25.0% | Time: 14min3s | ETA: 19min52s
 
 
 
