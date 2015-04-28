@@ -153,3 +153,9 @@ class TestBar(unittest.TestCase):
     def test_is_iterable(self):
         self.assertIsInstance(self.bar, Iterable)
 
+    def test_context(self):
+        with mock.patch('%s.open' % __name__, mock.mock_open(read_data='first line'),
+                        create=True) as m:
+            with frogress.bar(open('fake_file')) as f:
+                result = f.read()
+        self.assertEqual(result, 'first line')
