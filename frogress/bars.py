@@ -27,7 +27,7 @@ class Bar(object):
         self.separator = ' | '
         self.output = sys.stdout
         self.last_shown_at = None
-        self.treshold = 0.05 # in seconds
+        self.treshold = 0.05  # in seconds
 
     def setup_widgets(self, widgets):
         _widgets = widgets or self.DEFAULT_WIDGETS[:]
@@ -71,6 +71,12 @@ class Bar(object):
             raise
 
     next = __next__
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args, **kwargs):
+        self._iterable.__exit__(*args, **kwargs)
 
     def start(self):
         self.started = datetime.datetime.now()
@@ -140,4 +146,3 @@ class Bar(object):
 
 class TransferBar(Bar):
     DEFAULT_WIDGETS = [BarWidget, TransferWidget, TimerWidget, EtaWidget]
-
