@@ -201,3 +201,22 @@ class TestEtaWidget(TestBaseWidget):
         self.bar.finished = True
         self.assertRenderedWidgetEqual('Eta: --')
 
+class TestWatchLenWidget(TestBaseWidget):
+    widget_class = frogress.WatchLenWidget
+    widget_attrs = {'prefix': 'Len: '}
+
+    def test_render(self):
+        self.bar.watch = [1,1,1]
+        self.assertRenderedWidgetEqual('Len: 3')
+
+        self.bar.watch = []
+        self.assertRenderedWidgetEqual('Len: 0')
+
+        self.bar.watch = set([1])
+        self.assertRenderedWidgetEqual('Len: 1')
+
+        self.bar.watch = {1:1, 2:2}
+        self.assertRenderedWidgetEqual('Len: 2')
+
+        self.bar.watch = None
+        self.assertRenderedWidgetEqual('Len: --')

@@ -7,6 +7,7 @@ from .widgets import ProgressWidget
 from .widgets import TimerWidget
 from .widgets import TransferWidget
 from .widgets import PercentageWidget
+from .widgets import WatchLenWidget
 import datetime
 import sys
 import time
@@ -16,11 +17,12 @@ class Bar(object):
 
     DEFAULT_WIDGETS = [BarWidget, ProgressWidget, TimerWidget, EtaWidget]
 
-    def __init__(self, iterable, steps=None, step_callback=None, widgets=None):
+    def __init__(self, iterable, steps=None, step_callback=None, watch=None, widgets=None):
         self.steps = steps
         self.iterable = iterable
         self.step = 0
         self.step_callback = step_callback
+        self.watch = watch
         self.started = None
         self.finished = None
         self.setup_widgets(widgets)
@@ -141,3 +143,8 @@ class Bar(object):
 class TransferBar(Bar):
     DEFAULT_WIDGETS = [BarWidget, TransferWidget, TimerWidget, EtaWidget]
 
+class WatchBar(Bar):
+    DEFAULT_WIDGETS = [BarWidget, ProgressWidget, TimerWidget, EtaWidget, WatchLenWidget]
+
+class TransferWatchBar(WatchBar):
+    DEFAULT_WIDGETS = [BarWidget, TransferWidget, TimerWidget, EtaWidget, WatchLenWidget]

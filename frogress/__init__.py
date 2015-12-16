@@ -3,6 +3,8 @@ frogress is simple progress tool
 """
 from .bars import Bar
 from .bars import TransferBar
+from .bars import WatchBar
+from .bars import TransferWatchBar
 from .api import bar
 from .utils import get_iterable_size
 from .utils import get_file_info
@@ -14,11 +16,14 @@ from .widgets import TransferWidget
 from .widgets import BarWidget
 from .widgets import TimerWidget
 from .widgets import WhirlWidget
+from .widgets import WatchLenWidget
 
 
 __all__ = [
     'Bar',
     'TransferBar',
+    'WatchBar',
+    'TransferWatchBar',
     'Widget',
     'EtaWidget',
     'PercentageWidget',
@@ -27,6 +32,7 @@ __all__ = [
     'BarWidget',
     'TimerWidget',
     'WhirlWidget',
+    'WatchLenWidget',
     'get_file_info',
     'get_iterable_size',
     'bar',
