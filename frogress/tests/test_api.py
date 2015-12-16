@@ -9,18 +9,20 @@ class TestBar(unittest.TestCase):
     def test_bar_passes_parameters(self):
         seq = [1, 2, 3, 4, 5]
         progressbar = frogress.bar(seq)
-        self.assertEqual(progressbar.iterable, seq)
+        self.assertIs(progressbar.iterable, seq)
 
     def test_file(self):
+        seq = [1, 2, 3, 4, 5]
         with tempfile.NamedTemporaryFile('w') as tmp:
             text = 'foobar\n' * 25
             tmp.write(text)
             tmp.flush()
             f = open(tmp.name)
-            bar = frogress.bar([], source=f)
+            bar = frogress.bar(seq, source=f)
             self.assertIsInstance(bar, frogress.TransferBar)
             self.assertEqual(bar.step_callback, f.tell)
             self.assertEqual(bar.steps, len(text))
+            self.assertIs(bar.iterable, seq)
 
     def test_watch(self):
         a = []
