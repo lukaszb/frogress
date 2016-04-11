@@ -1,6 +1,5 @@
 import os
 import struct
-import termios
 
 
 def get_list(count):
@@ -16,6 +15,7 @@ def gen_range(count):
 
 def get_terminal_width():
     try:
+        import termios
         import fcntl
         width = struct.unpack(b'hh',
             fcntl.ioctl(0, termios.TIOCGWINSZ, b'1234'))[1]
