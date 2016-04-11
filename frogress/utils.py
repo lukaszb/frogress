@@ -19,7 +19,7 @@ def get_terminal_width():
         import fcntl
         width = struct.unpack(b'hh',
             fcntl.ioctl(0, termios.TIOCGWINSZ, b'1234'))[1]
-    except (IndexError, IOError):
+    except (IndexError, IOError, ImportError):
         width = None
     return width
 
