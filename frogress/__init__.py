@@ -16,7 +16,7 @@ from .widgets import TransferWidget
 from .widgets import BarWidget
 from .widgets import TimerWidget
 from .widgets import WhirlWidget
-from .widgets import WatchLenWidget
+from .widgets import WatchWidget
 
 
 __all__ = [
@@ -32,7 +32,7 @@ __all__ = [
     'BarWidget',
     'TimerWidget',
     'WhirlWidget',
-    'WatchLenWidget',
+    'WatchWidget',
     'get_file_info',
     'get_iterable_size',
     'bar',

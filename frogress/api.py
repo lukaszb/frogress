@@ -11,7 +11,6 @@ def bar(iterable, **kwargs):
     kwargs.setdefault('steps', get_iterable_size(iterable))
     
     is_watching = 'watch' in kwargs
-    print(kwargs, is_watching)
     
     source = kwargs.pop('source', iterable)
     file_info = get_file_info(source)

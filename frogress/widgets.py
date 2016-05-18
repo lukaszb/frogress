@@ -116,12 +116,12 @@ class EtaWidget(PrefixWidget):
         return ''.join((self.prefix, progress))
 
 
-class WatchLenWidget(PrefixWidget):
-    default_prefix = 'Len: '
+class WatchWidget(PrefixWidget):
+    default_prefix = 'Watch: '
 
     def render(self, bar):
         if bar.watch is None:
-            length = '--'
+            val = '--'
         else:
-            length = '%s' % (len(bar.watch),)
-        return ''.join((self.prefix, length))
+            val = str(bar.watch())
+        return ''.join((self.prefix, val))

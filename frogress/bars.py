@@ -7,7 +7,7 @@ from .widgets import ProgressWidget
 from .widgets import TimerWidget
 from .widgets import TransferWidget
 from .widgets import PercentageWidget
-from .widgets import WatchLenWidget
+from .widgets import WatchWidget
 import datetime
 import sys
 import time
@@ -144,7 +144,7 @@ class TransferBar(Bar):
     DEFAULT_WIDGETS = [BarWidget, TransferWidget, TimerWidget, EtaWidget]
 
 class WatchBar(Bar):
-    DEFAULT_WIDGETS = [BarWidget, ProgressWidget, TimerWidget, EtaWidget, WatchLenWidget]
+    DEFAULT_WIDGETS = [BarWidget, ProgressWidget, TimerWidget, EtaWidget, WatchWidget]
 
 class TransferWatchBar(WatchBar):
-    DEFAULT_WIDGETS = [BarWidget, TransferWidget, TimerWidget, EtaWidget, WatchLenWidget]
+    DEFAULT_WIDGETS = [BarWidget, TransferWidget, TimerWidget, EtaWidget, WatchWidget]

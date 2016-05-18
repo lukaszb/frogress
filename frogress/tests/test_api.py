@@ -25,24 +25,24 @@ class TestBar(unittest.TestCase):
             self.assertIs(bar.iterable, seq)
 
     def test_watch(self):
-        a = []
         seq = [1, 2, 3, 4, 5]
-        bar = frogress.bar(seq, watch=a)
+        w = lambda: 1
+        bar = frogress.bar(seq, watch=w)
         self.assertIsInstance(bar, frogress.WatchBar)
-        self.assertEqual(bar.watch, a)
+        self.assertEqual(bar.watch, w)
         self.assertIs(bar.iterable, seq)
 
     def test_watch_file(self):
-        a = []
         seq = [1, 2, 3, 4, 5]
+        w = lambda: 1
         with tempfile.NamedTemporaryFile('w') as tmp:
             text = 'foobar\n' * 25
             tmp.write(text)
             tmp.flush()
             f = open(tmp.name)
-            bar = frogress.bar(seq, watch=a, source=f)
+            bar = frogress.bar(seq, watch=w, source=f)
             self.assertIsInstance(bar, frogress.TransferWatchBar)
-            self.assertIs(bar.watch, a)
+            self.assertIs(bar.watch, w)
             self.assertEqual(bar.step_callback, f.tell)
             self.assertEqual(bar.steps, len(text))
             self.assertIs(bar.iterable, seq)
