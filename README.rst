@@ -8,7 +8,7 @@ frogress - a progress tool for humans
 .. image:: https://coveralls.io/repos/lukaszb/frogress/badge.png?branch=master
    :target: https://coveralls.io/r/lukaszb/frogress/
 
-.. image:: https://pypip.in/v/frogress/badge.png
+.. image:: https://img.shields.io/pypi/v/frogress.svg
    :target: https://crate.io/packages/frogress/
 
 ::
