@@ -201,3 +201,20 @@ class TestEtaWidget(TestBaseWidget):
         self.bar.finished = True
         self.assertRenderedWidgetEqual('Eta: --')
 
+class TestWatchWidget(TestBaseWidget):
+    widget_class = frogress.WatchWidget
+    widget_attrs = {'prefix': 'Watch: '}
+
+    def test_render(self):
+        self.bar.watch = lambda: 3
+        self.assertRenderedWidgetEqual('Watch: 3')
+        
+        x = 1
+        y = 2
+        self.bar.watch = lambda: x + y
+        self.assertRenderedWidgetEqual('Watch: 3')
+        x = 2
+        self.assertRenderedWidgetEqual('Watch: 4')
+
+        self.bar.watch = None
+        self.assertRenderedWidgetEqual('Watch: --')

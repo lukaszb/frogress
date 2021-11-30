@@ -115,3 +115,13 @@ class EtaWidget(PrefixWidget):
             progress = humanize.time(estimated_total - seconds)
         return ''.join((self.prefix, progress))
 
+
+class WatchWidget(PrefixWidget):
+    default_prefix = 'Watch: '
+
+    def render(self, bar):
+        if bar.watch is None:
+            val = '--'
+        else:
+            val = str(bar.watch())
+        return ''.join((self.prefix, val))
