@@ -25,7 +25,7 @@ setup(
     url='https://github.com/lukaszb/frogress',
     author='Lukasz Balcerzak',
     author_email='lukaszbalcerzak@gmail.com',
-    description=frogress.__doc__,
+    description="A progress tool for humans",
     long_description=long_description,
     zip_safe=False,
     packages=find_packages(),
