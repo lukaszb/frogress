@@ -39,11 +39,11 @@ class BarWidget(Widget):
 
 
 class WhirlWidget(Widget):
-    finished_text = '*'
 
-    def __init__(self, chars='|/-\\'):
+    def __init__(self, chars='|/-\\', finished_text="*"):
         self.chars = chars
         self.pos = 0
+        self.finished_text = finished_text
 
     def render(self, bar):
         if bar.finished:
@@ -58,6 +58,24 @@ class PrefixWidget(Widget):
     default_prefix = None
     def __init__(self, prefix=None):
         self.prefix = prefix if prefix is not None else self.default_prefix
+
+
+class TemplateWidget(Widget):
+
+    def __init__(self, template, width=None, fillchar=" "):
+        self.template = template
+        self.width = width
+        self.fillchar = fillchar
+
+    def render(self, bar):
+        line = self.template.format(
+            bar=bar,
+            steps=bar.steps,
+            step=bar.step,
+        )
+        if self.width:
+            line = line.ljust(self.width, self.fillchar)
+        return line
 
 
 class ProgressWidget(PrefixWidget):
