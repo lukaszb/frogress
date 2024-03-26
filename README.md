@@ -155,6 +155,34 @@ a stream is file like object, however passing proper source is responsibility
 of the user.
 
 
+## Spinner without actual iterable
+
+Sometimes we just want to show that program is doing something but we don't
+really know how long it would take (i.e. perform couple of API requests).
+
+### Example
+
+```
+import frogress
+import time
+
+def cmd(s=0):
+    time.sleep(s)
+
+
+def main():
+    with frogress.spinner("Waiting for response 1", done="OK"):
+        cmd(0.5)
+    with frogress.spinner("Waiting for response 2", done="Done"):
+        cmd(0.5)
+    with frogress.spinner("Waiting for response 3", done="All done, really!"):
+        cmd(0.5)
+
+main()
+
+```
+
+
 ## Progress bar class API
 
 Most of the time you won't need to call those API directly - ``frogress.bar``

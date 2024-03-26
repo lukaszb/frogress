@@ -23,11 +23,8 @@ def bar(iterable, **kwargs):
     return progressbar
 
 
-
-
 @contextmanager
 def spinner(title, done="Done", title_on_done=None):
-
     finished = False
 
     def gen():
@@ -36,13 +33,13 @@ def spinner(title, done="Done", title_on_done=None):
             yield
 
     def task():
-        list(
-            bar(
-                gen(),
-                widgets=[w.TemplateWidget(title), w.WhirlWidget(finished_text=done)],
-                separator=" "
-            )
+        abar = bar(
+            gen(),
+            widgets=[w.TemplateWidget(title), w.WhirlWidget(finished_text=done)],
+            separator=" ",
         )
+        list(abar)
+
     thread = Thread(target=task)
     thread.start()
     try:
