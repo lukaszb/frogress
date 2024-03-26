@@ -1,9 +1,8 @@
-from __future__ import unicode_literals, absolute_import
-from frogress.tests.compat import unittest
 from frogress.utils import gen_range
 from unittest import mock
 import frogress
 import io
+import unittest
 
 
 class TestBaseWidget(unittest.TestCase):

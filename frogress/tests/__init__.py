@@ -1,6 +1,5 @@
-from __future__ import unicode_literals
-from .compat import unittest
 import os
+import unittest
 
 
 def collector():

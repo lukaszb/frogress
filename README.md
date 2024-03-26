@@ -1,24 +1,24 @@
-=====================================
-frogress - a progress tool for humans
-=====================================
+<div align="center">
+  <h1>frogress - progress tool for snakes</h1>
 
-.. image:: https://api.travis-ci.com/lukaszb/frogress.svg?branch=master
-   :target: http://travis-ci.org/lukaszb/frogress
+[![Build status][travis-actions-image]][travis-actions-url]
+[travis-actions-image]: https://api.travis-ci.com/lukaszb/frogress.svg?branch=master
+[travis-actions-url]: http://travis-ci.org/lukaszb/frogress
 
-.. image:: https://coveralls.io/repos/lukaszb/frogress/badge.png?branch=master
-   :target: https://coveralls.io/r/lukaszb/frogress/
+[![Coverage status][coveralls-actions-image]][coveralls-actions-url]
+[coveralls-actions-image]: https://coveralls.io/repos/lukaszb/frogress/badge.svg?branch=master
+[coveralls-actions-url]: https://coveralls.io/r/lukaszb/frogress?branch=master
 
-.. image:: https://img.shields.io/pypi/v/frogress.svg
-   :target: https://crate.io/packages/frogress/
+</div>
 
-::
-
+```
                 /----------------------------------------------------------------------------------\
                 |                                                                                  |
       @..@     /| [###.......] Progress: 34.2MB / 125.8MB |  25.0% | Time: 14min3s | ETA: 19min52s |
      (----)   / |                                                                                  |
     ( >__< )    \----------------------------------------------------------------------------------/
     ^^ ~~ ^^
+```
 
 
 frogress is small progress indication tool to be used for fast prototyping.
@@ -27,27 +27,23 @@ your terminal, that's why!
 
 - Does NOT break your workflow (in most cases there is no need to call
   progress bar to render itself)
-- It can guess if you `iterate over a list`_ (or similar iterable) ...
+- It can guess if you [iterate over a list](#iterate-over-a-list) (or similar iterable) ...
 - or if iterate over a file ...
 - or if iterate over generator - provided you know it's total length ...
 - or not! (no eta, no total steps, no percentage and indicator instead of a bar
   but it works!)
 - And you can easily teach it how to show progress of fat, gzipped xml file
-  when using lxml_ to parse it
+  when using [lxml][lxml] to parse it
 - Supports Python 2.6+, Python 3, PyPY
 - Fully tested
 
 
-Iteration examples
-==================
+## Iteration examples
 
 
-.. _iterate over a list:
+### Iterate over a list
 
-Iterate over a list
--------------------
-
-::
+```
 
     >>> import frogress
     >>> items = [1, 2, 3, 4, 5]
@@ -56,11 +52,11 @@ Iterate over a list
 
     [##........] Step 2/5 |  20.0% | Time: 0.1s | ETA: 0.5s
 
+```
 
-Iterate over a file
--------------------
+### Iterate over a file
 
-::
+```
 
     >>> import frogress
     >>> for line in frogress.bar(open('/path/to/file', steps_label='Progress')):
@@ -68,11 +64,11 @@ Iterate over a file
 
     [###.......] Progress: 3.2MB / 12.8MB |  25.0% | Time: 14min3s | ETA: 19min52s
 
+```
 
-Iterate over generator
-----------------------
+### Iterate over generator
 
-::
+```
 
     >>> import frogress
     >>> count = 100
@@ -81,12 +77,11 @@ Iterate over generator
     ...     pass # do something with item
 
     [#########.] Step 86/100 |  86.0% | Time: 1.2s | ETA: 7.3s
+```
 
+### Iterate over a generator with unknown total number of steps
 
-Iterate over a generator with unknown total number of steps
------------------------------------------------------------
-
-::
+```
 
     >>> import frogress
     >>> def counter():
@@ -104,10 +99,10 @@ Iterate over a generator with unknown total number of steps
     [........#.] Step: 1412 | Time: 2min16s
     [.......#..] Step: 1413 | Time: 2min17s
 
+```
 
 
-Iterate over gzipped xml file using lxml
-----------------------------------------
+### Iterate over gzipped xml file using lxml
 
 The only problem with how to present a progress of file that's being processed
 is the source from which frogress should extract progress information. We can
@@ -115,10 +110,9 @@ try to do this simple way (without knowledge of how much of the file is already
 processed) or give ``frogress`` a *source*.
 
 
-Simple way
-~~~~~~~~~~
+#### Simple way
 
-::
+```
 
     >>> import frogress
     >>> import gzip
@@ -131,6 +125,8 @@ Simple way
 
     [...#......] Progress: 41923 | Time: 1h42min
 
+```
+
 This is perfectly fine: we passed an iterable that doesn't provide information
 on how many total items there is to process - so we have an bar activity
 indicator, no total steps at the progress and no ETA.
@@ -139,10 +135,9 @@ However, there is clearly a way of retrieving this information - after all this
 is only a file that's being processed. And that file should be passed as
 ``source`` argument to the ``frogress.bar`` function.
 
-Pass source
-~~~~~~~~~~~
+#### Pass source
 
-::
+```
 
     >>> import frogress
     >>> import gzip
@@ -155,6 +150,9 @@ Pass source
 
     [#####.....] Progress: 73.5MB / 156.4MB |  47.3% | Time: 1h42min | ETA: 1h53min
 
+```
+
+
 Just remember to pass file that is actually processed, not a wrapper! Standard
 file would be passed directly, however in example, ``gzip`` module wraps stream
 it is working on and it's available as attribute ``myfileobj``. On the other
@@ -163,12 +161,13 @@ a stream is file like object, however passing proper source is responsibility
 of the user.
 
 
-Progress bar class API
-======================
+## Progress bar class API
 
 Most of the time you won't need to call those API directly - ``frogress.bar``
 function should work for majority of the use cases. If, however, you feel like
-you need to make some customization, here we present some examples::
+you need to make some customization, here we present some examples
+
+```
 
     >>> import frogress
     >>> items = [1, 2, 3, 4, 5]
@@ -192,14 +191,13 @@ you need to make some customization, here we present some examples::
     >>> progressbar.finished
     datetime.datetime(2013, 5, 12, 22, 2, 26, 792901)
 
+```
 
-Tips & Tricks
-=============
+## Tips & Tricks
 
-How to change label of the progress widget
-------------------------------------------
+### How to change label of the progress widget
 
-::
+```
 
     >>> import frogress
     >>> items = [1, 2, 3, 4, 5]
@@ -208,5 +206,5 @@ How to change label of the progress widget
     >>>     pass
 
 
-.. _lxml: http://lxml.de/
-
+```
+[lxml]: http://lxml.de/

@@ -1,5 +1,3 @@
-from __future__ import unicode_literals, absolute_import
-from frogress.tests.compat import unittest
 from frogress.utils import gen_range
 from frogress.utils import get_first_attr
 from frogress.utils import get_terminal_width
@@ -7,6 +5,7 @@ from os import terminal_size
 from unittest import mock
 import frogress
 import tempfile
+import unittest
 
 
 class TestGetIterableSize(unittest.TestCase):
