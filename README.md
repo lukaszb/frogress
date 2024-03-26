@@ -1,15 +1,9 @@
-<div align="center">
-  <h1>frogress - progress tool for snakes</h1>
+# frogress - progress tool for snakes
 
-[![Build status][travis-actions-image]][travis-actions-url]
-[travis-actions-image]: https://api.travis-ci.com/lukaszb/frogress.svg?branch=master
-[travis-actions-url]: http://travis-ci.org/lukaszb/frogress
+[![Build Status](https://app.travis-ci.com/lukaszb/frogress.svg?token=yU4TayxRr7VaoPy9gksr&branch=master)](https://app.travis-ci.com/lukaszb/frogress)
 
-[![Coverage status][coveralls-actions-image]][coveralls-actions-url]
-[coveralls-actions-image]: https://coveralls.io/repos/lukaszb/frogress/badge.svg?branch=master
-[coveralls-actions-url]: https://coveralls.io/r/lukaszb/frogress?branch=master
+[![Coverage Status](https://coveralls.io/repos/github/lukaszb/frogress/badge.svg?branch=master)](https://coveralls.io/github/lukaszb/frogress?branch=master)
 
-</div>
 
 ```
                 /----------------------------------------------------------------------------------\
