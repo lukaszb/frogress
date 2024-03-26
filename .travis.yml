@@ -12,7 +12,7 @@ install:
     - travis_retry pip install requests lxml coverage coveralls pytest
 
 script:
-    - coverage run --source=frogress pytest .
+    - coverage run --source=frogress -m pytest
     - ./examples.py
 
 after_success:
