@@ -1,6 +1,6 @@
 include LICENSE
 include MANIFEST.in
-include README.rst
+include README.md
 include examples.py
 include sampledata/books.xml
 include sampledata/books.xml.gz

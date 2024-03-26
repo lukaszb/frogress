@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 readme_file = os.path.abspath(os.path.join(os.path.dirname(__file__),
-    'README.rst'))
+    'README.md'))
 
 try:
     long_description = open(readme_file).read()
