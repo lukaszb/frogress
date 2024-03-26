@@ -47,7 +47,7 @@ def requests_progress():
             fout.write(chunk)
             percentage = bar.get_percentage()
             if percentage and percentage >= 30:
-                print('\nStopped on purpse')
+                print('\nStopped on purpose')
                 break
     print('\n')
 

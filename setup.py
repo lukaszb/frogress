@@ -13,10 +13,6 @@ except IOError as err:
         "long_description (%s)\n" % readme_file)
     sys.exit(1)
 
-extra_kwargs = {'tests_require': ['mock>1.0']}
-if sys.version_info < (2, 7):
-    extra_kwargs['tests_require'].append('unittest2')
-
 frogress = __import__('frogress')
 
 setup(
@@ -41,6 +37,5 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
     ],
-    **extra_kwargs
 )
 

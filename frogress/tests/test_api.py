@@ -1,7 +1,6 @@
-from __future__ import unicode_literals, absolute_import
-from frogress.tests.compat import unittest
 import frogress
 import tempfile
+import unittest
 
 
 class TestBar(unittest.TestCase):

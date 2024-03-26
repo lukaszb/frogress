@@ -1,5 +1,5 @@
-from frogress.tests.compat import unittest
 from frogress import humanize
+import unittest
 
 
 class TestHumanize(unittest.TestCase):
