@@ -182,6 +182,9 @@ main()
 
 ```
 
+![demo-multi-commands-simple](https://github.com/lukaszb/frogress/assets/190381/37b62e95-9120-4fe6-a035-de17640fc326)
+
+
 
 ## Progress bar class API
 
