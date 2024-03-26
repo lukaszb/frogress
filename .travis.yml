@@ -6,7 +6,6 @@ python:
  - "3.11"
  - "3.12"
  - "3.13-dev"
- - "pypy"
 
 install:
     - travis_retry pip install requests lxml coverage coveralls pytest
