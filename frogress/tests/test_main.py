@@ -1,7 +1,7 @@
 from __future__ import unicode_literals, absolute_import
 from frogress.tests.compat import unittest
+from unittest import mock
 import frogress
-import mock
 
 
 class TestGetVersion(unittest.TestCase):

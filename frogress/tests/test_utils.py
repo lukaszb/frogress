@@ -3,8 +3,9 @@ from frogress.tests.compat import unittest
 from frogress.utils import gen_range
 from frogress.utils import get_first_attr
 from frogress.utils import get_terminal_width
+from os import terminal_size
+from unittest import mock
 import frogress
-import mock
 import tempfile
 
 
@@ -76,24 +77,8 @@ def raiser(err):
 
 class TestTerminalWidth(unittest.TestCase):
 
-    @mock.patch('frogress.utils.struct.unpack')
-    def test_index_error(self, unpack):
-        unpack.side_effect = raiser(IndexError)
-        self.assertIsNone(get_terminal_width())
-
-    @mock.patch('frogress.utils.struct.unpack')
-    def test_io_error(self, unpack):
-        unpack.side_effect = raiser(IOError)
-        self.assertIsNone(get_terminal_width())
-
-    @mock.patch('frogress.utils.struct.unpack')
-    def test_other_error(self, unpack):
-        unpack.side_effect = raiser(ValueError)
-        with self.assertRaises(ValueError):
-            get_terminal_width()
-
-    @mock.patch('frogress.utils.struct.unpack')
-    def test_get_terminal_width(self, unpack):
-        unpack.return_value = ['foo', 80]
+    @mock.patch('frogress.utils.os.get_terminal_size')
+    def test_get_terminal_width(self, get_terminal_size):
+        get_terminal_size.return_value = terminal_size((80, 100))
         self.assertEqual(get_terminal_width(), 80)
 

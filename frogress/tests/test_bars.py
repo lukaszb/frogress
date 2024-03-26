@@ -1,12 +1,12 @@
 from __future__ import unicode_literals, absolute_import
-from collections import Iterable
+from collections.abc import Iterable
 from frogress.tests.compat import unittest
 from frogress.utils import get_list, gen_range
 from frogress.widgets import ProgressWidget
+from unittest import mock
 import datetime
 import frogress
 import io
-import mock
 
 
 class TestBar(unittest.TestCase):

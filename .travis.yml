@@ -1,19 +1,19 @@
 language: python
 sudo: false
 python:
- - 2.6
- - 2.7
- - 3.3
- - 3.4
+ - 3.9
+ - 3.10
+ - 3.11
+ - 3.12
  - "pypy"
 
 install:
-    - travis_retry pip install requests lxml coverage coveralls
+    - travis_retry pip install requests lxml coverage coveralls pytest
 
 script:
     # here we run test suite for setup.py installed package
     # - setup.py should install all required deps
-    - coverage run --source=frogress setup.py test
+    - coverage run --source=frogress pytest .
     - ./examples.py
 
 after_success:
