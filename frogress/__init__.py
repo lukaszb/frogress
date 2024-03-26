@@ -4,6 +4,7 @@ frogress is simple progress tool
 from .bars import Bar
 from .bars import TransferBar
 from .api import bar
+from .api import spinner
 from .utils import get_iterable_size
 from .utils import get_file_info
 from .widgets import Widget
@@ -30,6 +31,7 @@ __all__ = [
     'get_file_info',
     'get_iterable_size',
     'bar',
+    'spinner',
 ]
 
 VERSION = (0, 10, 0, 'dev')
