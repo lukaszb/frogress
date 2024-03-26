@@ -1,18 +1,17 @@
 language: python
 sudo: false
 python:
- - 3.9
- - 3.10
- - 3.11
- - 3.12
+ - "3.9"
+ - "3.10"
+ - "3.11"
+ - "3.12"
+ - "3.13-dev"
  - "pypy"
 
 install:
     - travis_retry pip install requests lxml coverage coveralls pytest
 
 script:
-    # here we run test suite for setup.py installed package
-    # - setup.py should install all required deps
     - coverage run --source=frogress pytest .
     - ./examples.py
 
@@ -22,4 +21,3 @@ after_success:
 
 notifications:
   irc: "irc.freenode.net#frogress"
-
