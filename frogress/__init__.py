@@ -34,7 +34,7 @@ __all__ = [
     'spinner',
 ]
 
-VERSION = (0, 10, 0)
+VERSION = (0, 11, 0, 'dev')
 
 __version__ = '.'.join((str(each) for each in VERSION[:4]))
 
