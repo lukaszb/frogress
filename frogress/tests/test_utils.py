@@ -1,6 +1,7 @@
 from frogress.utils import gen_range
 from frogress.utils import get_first_attr
 from frogress.utils import get_terminal_width
+from frogress.utils import DEFAULT_TERMINAL_WIDTH
 from os import terminal_size
 from unittest import mock
 import frogress
@@ -81,3 +82,12 @@ class TestTerminalWidth(unittest.TestCase):
         get_terminal_size.return_value = terminal_size((80, 100))
         self.assertEqual(get_terminal_width(), 80)
 
+
+
+import io
+
+# @mock.patch.object(sys, "stdout", io.StringIO())
+# @mock.patch.object(sys, "stderr", io.StringIO())
+def test_terminal_width_with_captured_output(capfd):
+
+    assert get_terminal_width() == DEFAULT_TERMINAL_WIDTH

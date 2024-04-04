@@ -1,6 +1,9 @@
 import os
 
 
+DEFAULT_TERMINAL_WIDTH = 80
+
+
 def get_list(count):
     return list(range(count))
 
@@ -13,7 +16,10 @@ def gen_range(count):
 
 
 def get_terminal_width():
-    return os.get_terminal_size().columns
+    try:
+        return os.get_terminal_size().columns
+    except OSError:
+        return DEFAULT_TERMINAL_WIDTH
 
 
 def get_first_attr(obj, attrs):
